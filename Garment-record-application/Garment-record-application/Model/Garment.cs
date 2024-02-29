@@ -5,16 +5,7 @@ namespace Garment_record_application.Model;
 
 public class Garment : NotifyPropertyChangedHandler
 {
-    public Garment(uint id, string brandName, DateTime purchase, string color, GarmentSize size)
-    {
-        Id = id;
-        BrandName = brandName;
-        Purchase = purchase;
-        Color = color;
-        Size = size;
-    }
-    
-    private uint _id;
+    private uint _id = 1;
     public uint Id
     {
         get => _id;
@@ -28,7 +19,7 @@ public class Garment : NotifyPropertyChangedHandler
         set { _brandName = value; NotifyPropertyChanged("BrandName"); }
     }
     
-    private DateTime _purchase;
+    private DateTime _purchase = DateTime.Now;
     public DateTime Purchase
     {
         get => _purchase;

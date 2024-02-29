@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Garment-record-application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b8d0e0d1809d0c7d45d8ed70b5a8830882160596")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eb405fa8d67b62bc846170495dfdffaebbc8bffa")]
 [assembly: System.Reflection.AssemblyProductAttribute("Garment-record-application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Garment-record-application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
