@@ -154,9 +154,16 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
 
     private void DeleteGarment()
     {
+        var deletedId = _selectedGarment.Id;
         Garments.Remove(_selectedGarment);
+        
+        for (var i = (int)deletedId - 1; i < Garments.Count; i++)
+        {
+            Garments[i].Id = (uint)(i + 1);
+        }
+        
+        
         var updatedJson = JsonConvert.SerializeObject(Garments, Formatting.Indented);
-        SelectedGarment = new();
         File.WriteAllText("GarmentData.json", updatedJson);
         MessageBox.Show("Given garment data is deleted successfully...");
         GetJsonData();
