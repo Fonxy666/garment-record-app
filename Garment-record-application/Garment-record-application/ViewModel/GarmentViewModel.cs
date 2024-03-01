@@ -91,6 +91,8 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
             File.WriteAllText("GarmentData.json", newJsonData);
             MessageBox.Show("Given garment data is added successfully...");
             GetJsonData();
+            
+            SelectedGarment = new Garment();
         }
     }
 
@@ -132,6 +134,8 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
             File.WriteAllText("GarmentData.json", updatedJson);
             MessageBox.Show("Given garment data is updated successfully...");
             GetJsonData();
+            
+            SelectedGarment = new Garment();
         }
     }
 
@@ -156,5 +160,7 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
         File.WriteAllText("GarmentData.json", updatedJson);
         MessageBox.Show("Given garment data is deleted successfully...");
         GetJsonData();
+        
+        SelectedGarment = new Garment();
     }
 }
