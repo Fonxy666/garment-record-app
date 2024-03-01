@@ -23,7 +23,6 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
             if (_filterText != value)
             {
                 _filterText = value;
-                NotifyPropertyChanged("Garments");
                 FilterGarments();
             }
         }
@@ -186,11 +185,8 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
 
     private void FilterGarments()
     {
-        if (_filterText == string.Empty)
-        {
-            GetJsonData();
-        }
-        
+        GetJsonData();
         Garments = Garments.Where(garment => garment.BrandName!.Contains(_filterText)).ToList();
+        NotifyPropertyChanged("Garments");
     }
 }
