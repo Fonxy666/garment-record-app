@@ -13,6 +13,7 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
     private ICommand _showDataCommand;
     private ICommand _addCommand;
     private ICommand _updateCommand;
+    private ICommand _deleteCommand;
     private Garment _selectedGarment;
 
     public Garment SelectedGarment
@@ -91,6 +92,28 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
         var updatedJson = JsonConvert.SerializeObject(Garments, Formatting.Indented);
         File.WriteAllText("GarmentData.json", updatedJson);
         MessageBox.Show("Given garment data is updated successfully...");
+        GetJsonData();
+    }
+
+    public ICommand DeleteCommand
+    {
+        get
+        {
+            if (_deleteCommand == null)
+            {
+                _deleteCommand = new RelayCommand(param => DeleteGarment(), null);
+            }
+
+            return _deleteCommand;
+        }
+    }
+
+    private void DeleteGarment()
+    {
+        Garments.Remove(_selectedGarment);
+        var updatedJson = JsonConvert.SerializeObject(Garments, Formatting.Indented);
+        File.WriteAllText("GarmentData.json", updatedJson);
+        MessageBox.Show("Given garment data is deleted successfully...");
         GetJsonData();
     }
 }
