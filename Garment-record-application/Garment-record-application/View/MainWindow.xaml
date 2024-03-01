@@ -28,14 +28,12 @@
             </Grid.RowDefinitions>
             <Button Content="Add" HorizontalAlignment="Left" Margin="2,5,0,5" Height="20" Width="60" Command="{Binding AddCommand}"/>
             <Button Content="Refresh"  HorizontalAlignment="Left" Margin="72,5,0,5" Height="20" Width="60" Command="{Binding ShowDataCommand}"/>
-            <Button Content="Update"  HorizontalAlignment="Left" Margin="142,5,0,5" Height="20" Width="60" Command="{Binding UpdateCommand}"/>
-            <Button Content="Delete"  HorizontalAlignment="Left" Margin="212,5,0,5" Height="20" Width="60" Command="{Binding DeleteCommand}"/>
         </Grid>
         
         <Grid Grid.Row="2" >
             <Grid ShowGridLines="False">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -100,14 +98,14 @@
                 <DataGridTemplateColumn Header="Update" Width="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Update"/>
+                            <Button Content="Update" Command="{Binding DataContext.UpdateCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Delete" Width="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Delete"/>
+                            <Button Content="Delete" Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

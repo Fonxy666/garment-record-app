@@ -5,7 +5,7 @@ namespace Garment_record_application.Model;
 
 public class Garment : NotifyPropertyChangedHandler
 {
-    private uint _id = 1;
+    private uint _id;
     public uint Id
     {
         get => _id;
