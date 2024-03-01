@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Windows;
 using System.Windows.Input;
 using Garment_record_application.ICommandUpdater;
 using Garment_record_application.Model;
@@ -11,6 +12,7 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
 {
     private ICommand _showDataCommand;
     private ICommand _addCommand;
+    private ICommand _updateCommand;
     private Garment _selectedGarment;
 
     public Garment SelectedGarment
@@ -67,5 +69,28 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
 
         var newJsonData = JsonConvert.SerializeObject(Garments.ToList(), Formatting.Indented);
         File.WriteAllText("GarmentData.json", newJsonData);
+        MessageBox.Show("Given garment data is added successfully...");
+        GetJsonData();
+    }
+
+    public ICommand UpdateCommand
+    {
+        get
+        {
+            if (_updateCommand == null)
+            {
+                _updateCommand = new RelayCommand(param => UpdateJsonData(), null);
+            }
+
+            return _updateCommand;
+        }
+    }
+
+    private void UpdateJsonData()
+    {
+        var updatedJson = JsonConvert.SerializeObject(Garments, Formatting.Indented);
+        File.WriteAllText("GarmentData.json", updatedJson);
+        MessageBox.Show("Given garment data is updated successfully...");
+        GetJsonData();
     }
 }

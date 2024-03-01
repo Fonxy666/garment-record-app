@@ -26,8 +26,10 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
-            <Button Content="Refresh"  HorizontalAlignment="Left" Margin="194,5,0,5" Height="20" Width="60" Command="{Binding ShowDataCommand}"/>
             <Button Content="Add" HorizontalAlignment="Left" Margin="2,5,0,5" Height="20" Width="60" Command="{Binding AddCommand}"/>
+            <Button Content="Refresh"  HorizontalAlignment="Left" Margin="72,5,0,5" Height="20" Width="60" Command="{Binding ShowDataCommand}"/>
+            <Button Content="Update"  HorizontalAlignment="Left" Margin="142,5,0,5" Height="20" Width="60" Command="{Binding UpdateCommand}"/>
+            <Button Content="Delete"  HorizontalAlignment="Left" Margin="212,5,0,5" Height="20" Width="60" Command="{Binding DeleteCommand}"/>
         </Grid>
         
         <Grid Grid.Row="2" >
@@ -81,7 +83,8 @@
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             ScrollViewer.VerticalScrollBarVisibility="Visible"
-            CanUserAddRows="false">
+            CanUserAddRows="false"
+            SelectedItem="{Binding SelectedGarment}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Width="100" Binding="{Binding Id}"/>
                 <DataGridTextColumn Header="Brand name" Width="100" Binding="{Binding BrandName}"/>
