@@ -14,8 +14,22 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
     private ICommand _addCommand;
     private ICommand _updateCommand;
     private ICommand _deleteCommand;
+    private string _filterText;
+    public string FilterText
+    {
+        get => _filterText; 
+        set
+        {
+            if (_filterText != value)
+            {
+                _filterText = value;
+                NotifyPropertyChanged("Garments");
+                FilterGarments();
+            }
+        }
+    }
+    
     private Garment _selectedGarment;
-
     public Garment SelectedGarment
     {
         get => _selectedGarment;
@@ -157,11 +171,10 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
         var deletedId = _selectedGarment.Id;
         Garments.Remove(_selectedGarment);
         
-        for (var i = (int)deletedId - 1; i < Garments.Count; i++)
+        for (var i = (int)deletedId-1; i < Garments.Count; i++)
         {
-            Garments[i].Id = (uint)(i + 1);
+            Garments[i].Id = (uint)i+1;
         }
-        
         
         var updatedJson = JsonConvert.SerializeObject(Garments, Formatting.Indented);
         File.WriteAllText("GarmentData.json", updatedJson);
@@ -169,5 +182,15 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
         GetJsonData();
         
         SelectedGarment = new Garment();
+    }
+
+    private void FilterGarments()
+    {
+        if (_filterText == string.Empty)
+        {
+            GetJsonData();
+        }
+        
+        Garments = Garments.Where(garment => garment.BrandName!.Contains(_filterText)).ToList();
     }
 }
