@@ -1,0 +1,107 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0": {
+      "GarmentRecordLibrary/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/GarmentRecordLibrary.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/GarmentRecordLibrary.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "GarmentRecordLibrary/1.0.0": {
+      "type": "project",
+      "path": "../GarmentRecordLibrary/GarmentRecordLibrary.csproj",
+      "msbuildProject": "../GarmentRecordLibrary/GarmentRecordLibrary.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0": [
+      "GarmentRecordLibrary >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\vikto\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\after codecool\\garment-record-app\\Garment-record-application\\GarmentBusinessLogic\\GarmentBusinessLogic.csproj",
+      "projectName": "GarmentBusinessLogic",
+      "projectPath": "D:\\after codecool\\garment-record-app\\Garment-record-application\\GarmentBusinessLogic\\GarmentBusinessLogic.csproj",
+      "packagesPath": "C:\\Users\\vikto\\.nuget\\packages\\",
+      "outputPath": "D:\\after codecool\\garment-record-app\\Garment-record-application\\GarmentBusinessLogic\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\vikto\\AppData\\Roaming\\NuGet\\NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0"
+      ],
+      "sources": {
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "projectReferences": {
+            "D:\\after codecool\\garment-record-app\\Garment-record-application\\GarmentRecordLibrary\\GarmentRecordLibrary.csproj": {
+              "projectPath": "D:\\after codecool\\garment-record-app\\Garment-record-application\\GarmentRecordLibrary\\GarmentRecordLibrary.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0": {
+        "targetAlias": "net6.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[6.0.25, 6.0.25]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[6.0.25, 6.0.25]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[6.0.25, 6.0.25]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[6.0.25, 6.0.25]"
+          }
+        ],
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
