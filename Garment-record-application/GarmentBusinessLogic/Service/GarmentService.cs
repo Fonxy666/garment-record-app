@@ -26,7 +26,18 @@ public class GarmentService : IGarmentService
 
     public bool AddGarment(Garment garment)
     {
-        throw new NotImplementedException();
+        GarmentList!.Add(garment);
+        try
+        {
+            SaveToFile();
+            _logger.ShowText("New garment successfully added.");
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logger.ErrorLog($"Error saving to file: {ex.Message}");
+            return false;
+        }
     }
 
     public bool SaveToFile()
@@ -61,7 +72,6 @@ public class GarmentService : IGarmentService
 
     public Garment SearchGarment(uint garmentId)
     {
-        Console.WriteLine(GarmentList.Count);
         return GarmentList!.FirstOrDefault(garment => garment.Id == garmentId)!;
     }
 

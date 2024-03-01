@@ -1,6 +1,7 @@
 ﻿using GarmentBusinessLogic.Service;
 using GarmentBusinessLogic.Service.Logger;
 using GarmentRecordLibrary.Model;
+using GarmentRecordLibrary.Model.Enum;
 
 namespace GarmentBusinessLogic.Ui;
 
@@ -19,7 +20,7 @@ public class GarmentConsoleUi
         DisplayMenu();
 
         var inputCode = 0;
-        while (inputCode != 6)
+        while (inputCode != 7)
         {
             inputCode = GetCode();
             switch (inputCode)
@@ -28,15 +29,18 @@ public class GarmentConsoleUi
                     DisplayAllGarment();
                     break;
                 case 2:
-                    SearchById();
+                    AddGarment();
                     break;
                 case 3:
-                    Console.WriteLine("update garment.");
+                    SearchById();
                     break;
                 case 4:
-                    Console.WriteLine("sort garments.");
+                    UpdateGarment();
                     break;
                 case 5:
+                    Console.WriteLine("sort garments.");
+                    break;
+                case 6:
                     Console.WriteLine("delete");
                     break;
             }
@@ -46,11 +50,12 @@ public class GarmentConsoleUi
     private void DisplayMenu()
     {
         _logger.ShowText("1 - Display all garment.");
-        _logger.ShowText("2 - Search by id.");
-        _logger.ShowText("3 - Update a garment record.");
-        _logger.ShowText("4 - Sort:");
-        _logger.ShowText("5 - Delete a garment.");
-        _logger.ShowText("6 - Exit");
+        _logger.ShowText("2 - Add new garment.");
+        _logger.ShowText("3 - Search by id.");
+        _logger.ShowText("4 - Update a garment record.");
+        _logger.ShowText("5 - Sort:");
+        _logger.ShowText("6 - Delete a garment.");
+        _logger.ShowText("7 - Exit");
     }
     
     private int GetCode()
@@ -83,14 +88,67 @@ public class GarmentConsoleUi
         }
     }
 
+    private void AddGarment()
+    {
+        _logger.ShowText("At the end of the lines, give us the details you want to add to the new garment.");
+        _logger.OneLine("Brand name: ");
+        var newGarment = new Garment
+        {
+            Id = (uint)_garmentService.GarmentList!.Count + 1
+        };
+        newGarment.BrandName = _logger.Input();
+        _logger.OneLine("Color: ");
+        newGarment.Color = _logger.Input();
+        
+        _logger.ShowText("Size:");
+        _logger.OneLine("It can be: 'XS', 'S', 'M', 'L', 'XL', 'XXL', don't forget to use uppercase. The standard value is 'XS'.");
+        var garmentSizeInput = _logger.Input();
+        
+        if (Enum.TryParse(garmentSizeInput, out GarmentSize garmentSize))
+        {
+            newGarment.Size = garmentSize;
+        }
+        else
+        {
+            _logger.ErrorLog("Parse failed. The Size got default value, later on you can update it.");
+        }
+        
+        _logger.OneLine("Purchase date('yyyy-mm-dd'), or if you hit enter, it will save today: ");
+        var purchaseDateInput = _logger.Input();
+        if (DateTime.TryParse(purchaseDateInput, out var purchaseDate))
+        {
+            newGarment.Purchase = purchaseDate;
+        }
+        else
+        {
+            _logger.ErrorLog("Parse failed. Purchase date is set to today.");
+        }
+        
+        _garmentService.AddGarment(newGarment);
+    }
+
     private void SearchById()
     {
-        _logger.OneLine("Give us the id:");
+        _logger.OneLine("Give us the id: ");
         var input = _logger.Input();
         if (uint.TryParse(input, out var parsedId))
         {
             var garment = _garmentService.SearchGarment(parsedId);
             ShowGarment(garment);
+        }
+        else
+        {
+            _logger.ErrorLog("Invalid input. Please enter a valid number.");
+        }
+    }
+
+    private void UpdateGarment()
+    {
+        _logger.OneLine("Give us the garment id which you want to update: ");
+        var input = _logger.Input();
+        if (uint.TryParse(input, out var parsedId))
+        {
+            var garmentId = _garmentService.UpdateGarment(parsedId, new Garment());
         }
         else
         {
