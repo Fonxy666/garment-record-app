@@ -9,7 +9,7 @@ public class Garment : NotifyPropertyChangedHandler
     public uint Id
     {
         get => _id;
-        set { _id = value; NotifyPropertyChanged("Id"); }
+        set { _id = value; }
     }
     
     private string? _brandName;

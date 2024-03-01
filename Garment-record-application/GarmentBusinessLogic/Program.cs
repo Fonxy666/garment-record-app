@@ -1,3 +1,8 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using GarmentBusinessLogic.Service;
+using GarmentBusinessLogic.Service.Logger;
+using GarmentBusinessLogic.Ui;
 
-Console.WriteLine("Hello, World!");
+ILogger logger = new Logger();
+IGarmentService garmentService = new GarmentService("GarmentData.json", logger);
+var ui = new GarmentConsoleUi(logger, garmentService);
+ui.Run();
