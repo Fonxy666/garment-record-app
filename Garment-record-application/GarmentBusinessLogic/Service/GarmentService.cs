@@ -15,6 +15,7 @@ public class GarmentService : IGarmentService
     {
         _jsonPath = jsonPath;
         _logger = logger;
+        GarmentList = LoadFromFile(jsonPath);
     }
 
     public IList<Garment> LoadFromFile(string path)
@@ -48,19 +49,20 @@ public class GarmentService : IGarmentService
         GarmentList = LoadFromFile(_jsonPath);
     }
 
-    public bool UpdateGarment(string oldGarmentId, Garment newGarment)
+    public bool UpdateGarment(uint oldGarmentId, Garment newGarment)
     {
         throw new NotImplementedException();
     }
 
-    public bool DeleteGarment(string garmentId)
+    public bool DeleteGarment(uint garmentId)
     {
         throw new NotImplementedException();
     }
 
-    public bool SearchGarment(string garmentId)
+    public Garment SearchGarment(uint garmentId)
     {
-        throw new NotImplementedException();
+        Console.WriteLine(GarmentList.Count);
+        return GarmentList!.FirstOrDefault(garment => garment.Id == garmentId)!;
     }
 
     public bool SortGarments()

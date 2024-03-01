@@ -9,8 +9,8 @@ public interface IGarmentService
     bool AddGarment(Garment garment);
     bool SaveToFile();
     void ResetGarmentListToDefault();
-    bool UpdateGarment(string oldGarmentId, Garment newGarment);
-    bool DeleteGarment(string garmentId);
-    bool SearchGarment(string garmentId);
+    bool UpdateGarment(uint oldGarmentId, Garment newGarment);
+    bool DeleteGarment(uint garmentId);
+    Garment SearchGarment(uint garmentId);
     bool SortGarments();
 }

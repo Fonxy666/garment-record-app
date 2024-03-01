@@ -1,5 +1,6 @@
 ﻿using GarmentBusinessLogic.Service;
 using GarmentBusinessLogic.Service.Logger;
+using GarmentRecordLibrary.Model;
 
 namespace GarmentBusinessLogic.Ui;
 
@@ -27,7 +28,7 @@ public class GarmentConsoleUi
                     DisplayAllGarment();
                     break;
                 case 2:
-                    Console.WriteLine("search garment.");
+                    SearchById();
                     break;
                 case 3:
                     Console.WriteLine("update garment.");
@@ -57,23 +58,43 @@ public class GarmentConsoleUi
         return int.Parse(_logger.Input());
     }
 
+    private void ShowGarment(Garment garment)
+    {
+        _logger.ShowText($"Id: {garment.Id}");
+        _logger.ShowText($"Brand name: {garment.BrandName}");
+        _logger.ShowText($"Color: {garment.Color}");
+        _logger.ShowText($"Size: {garment.Size}");
+        _logger.ShowText($"Purchase time: {garment.Purchase}");
+        _logger.ShowText("------------------------------------------");
+    }
+
     private void DisplayAllGarment()
     {
-        var garments = _garmentService.LoadFromFile("GarmentData.json");
-        if (garments == null)
+        var garments = _garmentService.GarmentList;
+        if (garments!.Count == 0)
         {
             _logger.ErrorLog("There are no garments yet.");
             return;
         }
         
-        foreach (var garment in _garmentService.LoadFromFile("GarmentData.json"))
+        foreach (var garment in garments)
         {
-            _logger.ShowText($"Id: {garment.Id}");
-            _logger.ShowText($"Brand name: {garment.BrandName}");
-            _logger.ShowText($"Color: {garment.Color}");
-            _logger.ShowText($"Size: {garment.Size}");
-            _logger.ShowText($"Purchase time: {garment.Purchase}");
-            _logger.ShowText("------------------------------------------");
+            ShowGarment(garment);
+        }
+    }
+
+    private void SearchById()
+    {
+        _logger.OneLine("Give us the id:");
+        var input = _logger.Input();
+        if (uint.TryParse(input, out var parsedId))
+        {
+            var garment = _garmentService.SearchGarment(parsedId);
+            ShowGarment(garment);
+        }
+        else
+        {
+            _logger.ErrorLog("Invalid input. Please enter a valid number.");
         }
     }
 }
