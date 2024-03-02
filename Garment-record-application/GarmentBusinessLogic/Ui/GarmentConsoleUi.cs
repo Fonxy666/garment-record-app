@@ -65,6 +65,7 @@ public class GarmentConsoleUi
 
     private void ShowGarment(Garment garment)
     {
+        _logger.ShowText("------------------------------------------");
         _logger.ShowText($"Id: {garment.Id}");
         _logger.ShowText($"Brand name: {garment.BrandName}");
         _logger.ShowText($"Color: {garment.Color}");
@@ -89,6 +90,12 @@ public class GarmentConsoleUi
     }
 
     private void AddGarment()
+    {
+        var newGarment = CreateGarment();
+        _garmentService.AddGarment(newGarment);
+    }
+
+    private Garment CreateGarment()
     {
         _logger.ShowText("At the end of the lines, give us the details you want to add to the new garment.");
         _logger.OneLine("Brand name: ");
@@ -123,8 +130,8 @@ public class GarmentConsoleUi
         {
             _logger.ErrorLog("Parse failed. Purchase date is set to today.");
         }
-        
-        _garmentService.AddGarment(newGarment);
+
+        return newGarment;
     }
 
     private void SearchById()
@@ -148,11 +155,13 @@ public class GarmentConsoleUi
         var input = _logger.Input();
         if (uint.TryParse(input, out var parsedId))
         {
-            var garmentId = _garmentService.UpdateGarment(parsedId, new Garment());
+            var newGarment = CreateGarment();
+            newGarment.Id = parsedId;
+            _garmentService.UpdateGarment(parsedId, newGarment);
         }
         else
         {
-            _logger.ErrorLog("Invalid input. Please enter a valid number.");
+            _logger.ErrorLog("Update failed. There was an error updating the garment.");
         }
     }
 }

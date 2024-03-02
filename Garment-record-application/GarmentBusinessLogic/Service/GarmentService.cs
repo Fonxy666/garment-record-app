@@ -18,40 +18,36 @@ public class GarmentService : IGarmentService
         GarmentList = LoadFromFile(jsonPath);
     }
 
-    public IList<Garment> LoadFromFile(string path)
+    private IList<Garment> LoadFromFile(string path)
     {
         var json = File.ReadAllText(path);
         return JsonConvert.DeserializeObject<List<Garment>>(json)!;
     }
 
-    public bool AddGarment(Garment garment)
+    public void AddGarment(Garment garment)
     {
         GarmentList!.Add(garment);
         try
         {
             SaveToFile();
             _logger.ShowText("New garment successfully added.");
-            return true;
         }
         catch (Exception ex)
         {
             _logger.ErrorLog($"Error saving to file: {ex.Message}");
-            return false;
         }
     }
 
-    public bool SaveToFile()
+    private void SaveToFile()
     {
         try
         {
             var updatedJson = JsonConvert.SerializeObject(GarmentList, Formatting.Indented);
             File.WriteAllText(_jsonPath, updatedJson);
-            return true;
         }
         catch (Exception ex)
         {
             _logger.ErrorLog($"Error saving to file: {ex.Message}");
-            return false;
         }
     }
 
@@ -60,12 +56,23 @@ public class GarmentService : IGarmentService
         GarmentList = LoadFromFile(_jsonPath);
     }
 
-    public bool UpdateGarment(uint oldGarmentId, Garment newGarment)
+    public void UpdateGarment(uint oldGarmentId, Garment newGarment)
     {
-        throw new NotImplementedException();
+        var existingGarment = GarmentList!.FirstOrDefault(garment => garment.Id == oldGarmentId);
+        var index = GarmentList!.IndexOf(existingGarment!);
+        if (existingGarment != null)
+        {
+            GarmentList[index] = newGarment;
+            SaveToFile();
+            _logger.ShowText($"Garment with ID {oldGarmentId} updated successfully.");
+        }
+        else
+        {
+            _logger.ErrorLog($"Garment with ID {oldGarmentId} not found.");
+        }
     }
 
-    public bool DeleteGarment(uint garmentId)
+    public void DeleteGarment(uint garmentId)
     {
         throw new NotImplementedException();
     }
@@ -75,7 +82,7 @@ public class GarmentService : IGarmentService
         return GarmentList!.FirstOrDefault(garment => garment.Id == garmentId)!;
     }
 
-    public bool SortGarments()
+    public void SortGarments()
     {
         throw new NotImplementedException();
     }
