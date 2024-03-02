@@ -74,7 +74,18 @@ public class GarmentService : IGarmentService
 
     public void DeleteGarment(uint garmentId)
     {
-        throw new NotImplementedException();
+        var existingGarment = GarmentList!.FirstOrDefault(garment => garment.Id == garmentId);
+        
+        if (existingGarment != null)
+        {
+            GarmentList!.Remove(existingGarment);
+            SaveToFile();
+            _logger.ShowText($"Garment with ID {garmentId} deleted successfully.");
+        }
+        else
+        {
+            _logger.ErrorLog($"Garment with ID {garmentId} not found.");
+        }
     }
 
     public Garment SearchGarment(uint garmentId)

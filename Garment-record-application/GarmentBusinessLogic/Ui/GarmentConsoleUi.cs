@@ -41,7 +41,7 @@ public class GarmentConsoleUi
                     Console.WriteLine("sort garments.");
                     break;
                 case 6:
-                    Console.WriteLine("delete");
+                    DeleteGarment();
                     break;
             }
         }
@@ -162,6 +162,20 @@ public class GarmentConsoleUi
         else
         {
             _logger.ErrorLog("Update failed. There was an error updating the garment.");
+        }
+    }
+
+    private void DeleteGarment()
+    {
+        _logger.OneLine("Give us the garment id which you want to delete: ");
+        var input = _logger.Input();
+        if (uint.TryParse(input, out var parsedId))
+        {
+            _garmentService.DeleteGarment(parsedId);
+        }
+        else
+        {
+            _logger.ErrorLog("Delete failed. There was an error updating the garment.");
         }
     }
 }
