@@ -93,8 +93,35 @@ public class GarmentService : IGarmentService
         return GarmentList!.FirstOrDefault(garment => garment.Id == garmentId)!;
     }
 
-    public void SortGarments()
+    public void SortGarments(string sortType)
     {
-        throw new NotImplementedException();
+        switch (sortType)
+        {
+            case "id":
+                GarmentList = GarmentList!.OrderBy(garment => garment.Id).ToList();
+                SaveToFile();
+                _logger.ShowText("Garments sorted by Id successfully.");
+                break;
+            case "name":
+                GarmentList = GarmentList!.OrderBy(garment => garment.BrandName).ToList();
+                SaveToFile();
+                _logger.ShowText("Garments sorted by Brand name successfully.");
+                break;
+            case "color":
+                GarmentList = GarmentList!.OrderBy(garment => garment.Color).ToList();
+                SaveToFile();
+                _logger.ShowText("Garments sorted by Color successfully.");
+                break;
+            case "purchase":
+                GarmentList = GarmentList!.OrderBy(garment => garment.Purchase).ToList();
+                SaveToFile();
+                _logger.ShowText("Garments sorted by Purchase date successfully.");
+                break;
+            case "size":
+                GarmentList = GarmentList!.OrderBy(garment => garment.Size).ToList();
+                SaveToFile();
+                _logger.ShowText("Garments sorted by Size successfully.");
+                break;
+        }
     }
 }

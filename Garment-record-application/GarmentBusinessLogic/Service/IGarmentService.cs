@@ -10,5 +10,5 @@ public interface IGarmentService
     void UpdateGarment(uint oldGarmentId, Garment newGarment);
     void DeleteGarment(uint garmentId);
     Garment SearchGarment(uint garmentId);
-    void SortGarments();
+    void SortGarments(string sortType);
 }

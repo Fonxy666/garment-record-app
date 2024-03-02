@@ -38,7 +38,7 @@ public class GarmentConsoleUi
                     UpdateGarment();
                     break;
                 case 5:
-                    Console.WriteLine("sort garments.");
+                    SortGarment();
                     break;
                 case 6:
                     DeleteGarment();
@@ -53,7 +53,7 @@ public class GarmentConsoleUi
         _logger.ShowText("2 - Add new garment.");
         _logger.ShowText("3 - Search by id.");
         _logger.ShowText("4 - Update a garment record.");
-        _logger.ShowText("5 - Sort:");
+        _logger.ShowText("5 - Sort garment.");
         _logger.ShowText("6 - Delete a garment.");
         _logger.ShowText("7 - Exit");
     }
@@ -162,6 +162,20 @@ public class GarmentConsoleUi
         else
         {
             _logger.ErrorLog("Update failed. There was an error updating the garment.");
+        }
+    }
+
+    private void SortGarment()
+    {
+        _logger.ShowText("Id - Sort by Id.");
+        _logger.ShowText("Name - Sort by Brand name.");
+        _logger.ShowText("Color - Sort by Color.");
+        _logger.ShowText("Purchase - Sort by Purchase Date.");
+        _logger.ShowText("Size - Sort by Size.");
+        var input = _logger.Input().ToLower();
+        if (input != "back")
+        {
+            _garmentService.SortGarments(input);
         }
     }
 
