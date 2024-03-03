@@ -1,11 +1,10 @@
-﻿using System.IO;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 using Garment_record_application.ICommandUpdater;
+using GarmentBusinessLogic.Service;
+using GarmentBusinessLogic.Service.Logger;
 using GarmentRecordLibrary.Model;
 using GarmentRecordLibrary.ViewModel;
-using Newtonsoft.Json;
-using Formatting = Newtonsoft.Json.Formatting;
 
 namespace Garment_record_application.ViewModel;
 
@@ -15,6 +14,10 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
     private ICommand _addCommand;
     private ICommand _updateCommand;
     private ICommand _deleteCommand;
+    private ILogger _logger;
+    
+    private readonly IGarmentService _garmentService;
+    
     private string _filterText;
     public string FilterText
     {
@@ -36,11 +39,14 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
         set { _selectedGarment = value; NotifyPropertyChanged("SelectedGarment"); }
     }
     
-    public List<Garment> Garments { get; set; }
+    public IList<Garment> Garments { get; set; }
     public GarmentViewModel()
     {
+        _logger = new Logger();
+        _garmentService = new GarmentService("GarmentData.json", _logger);
         GetJsonData();
         SelectedGarment = new Garment();
+        
     }
 
     public ICommand ShowDataCommand
@@ -58,11 +64,10 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
     
     private void GetJsonData()
     {
-        var json = File.ReadAllText("GarmentData.json");
-        Garments = JsonConvert.DeserializeObject<List<Garment>>(json)!;
+        _garmentService.ResetGarmentListToDefault();
+        Garments = _garmentService.GarmentList!;
         NotifyPropertyChanged("Garments");
     }
-
 
     public ICommand AddCommand
     {
@@ -80,13 +85,8 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
     private void AddJsonData()
     {
         if (Garments == null)
-            Garments = new List<Garment>();
-
-        if (SelectedGarment == null)
         {
-            SelectedGarment = new();
-            MessageBox.Show("SelectedGarment is null. Aborting addition.");
-            return;
+            Garments = new List<Garment>();
         }
 
         SelectedGarment.Id = Garments.Count > 0 ? Garments.LastOrDefault()?.Id + 1 ?? 1 : 1;
@@ -99,11 +99,8 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
 
         if (!EmptyInput())
         {
-            Garments.Add(SelectedGarment);
-
-            var newJsonData = JsonConvert.SerializeObject(Garments, Formatting.Indented);
-            File.WriteAllText("GarmentData.json", newJsonData);
-            MessageBox.Show("Given garment data is added successfully...");
+            _garmentService.AddGarment(SelectedGarment);
+            MessageBox.Show("New garment successfully added.");
             GetJsonData();
             
             SelectedGarment = new Garment();
@@ -144,9 +141,8 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
     {
         if (!EmptyInput())
         {
-            var updatedJson = JsonConvert.SerializeObject(Garments, Formatting.Indented);
-            File.WriteAllText("GarmentData.json", updatedJson);
-            MessageBox.Show("Given garment data is updated successfully...");
+            _garmentService.UpdateGarment(_selectedGarment.Id, SelectedGarment);
+            MessageBox.Show("Garment data updated successfully.");
             GetJsonData();
             
             SelectedGarment = new Garment();
@@ -169,16 +165,9 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
     private void DeleteGarment()
     {
         var deletedId = _selectedGarment.Id;
-        Garments.Remove(_selectedGarment);
         
-        for (var i = (int)deletedId-1; i < Garments.Count; i++)
-        {
-            Garments[i].Id = (uint)i+1;
-        }
-        
-        var updatedJson = JsonConvert.SerializeObject(Garments, Formatting.Indented);
-        File.WriteAllText("GarmentData.json", updatedJson);
-        MessageBox.Show("Given garment data is deleted successfully...");
+        _garmentService.DeleteGarment(deletedId);
+        MessageBox.Show("Given garment data is deleted successfully.");
         GetJsonData();
         
         SelectedGarment = new Garment();
