@@ -44,6 +44,11 @@ public class GarmentConsoleUi
                     DeleteGarment();
                     break;
             }
+
+            if (inputCode != 7)
+            {
+                DisplayMenu();
+            }
         }
     }
 
