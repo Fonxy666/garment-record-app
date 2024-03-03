@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "17m+tkeoi4UL44P3MjDLVmgYrteQZojdTn3eQcD+Pqt6R/kWhyGTByr+9K71zAQYBBUQveT0jcTVcNGgCPjU/g==",
+  "success": true,
+  "projectFilePath": "D:\\after codecool\\garment-record-app\\Garment-record-application\\GarmentBusinessLogic\\GarmentBusinessLogic.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\vikto\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\vikto\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.25\\microsoft.netcore.app.ref.6.0.25.nupkg.sha512",
+    "C:\\Users\\vikto\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.25\\microsoft.windowsdesktop.app.ref.6.0.25.nupkg.sha512",
+    "C:\\Users\\vikto\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.25\\microsoft.aspnetcore.app.ref.6.0.25.nupkg.sha512",
+    "C:\\Users\\vikto\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.25\\microsoft.netcore.app.host.win-x64.6.0.25.nupkg.sha512"
+  ],
+  "logs": []
+}
