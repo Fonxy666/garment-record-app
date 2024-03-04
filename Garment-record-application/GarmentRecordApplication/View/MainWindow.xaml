@@ -92,55 +92,16 @@
                     </MenuItem>
                 </MenuItem>
             </Menu>
-            <Label Grid.Column="0" Grid.Row="0" Content="Search by name:" Margin="242,0,0,5" />
+            <Label Grid.Column="0" Grid.Row="0" Content="Search by id:" Margin="192,0,0,5" />
+            <TextBox Grid.Column="0" Grid.Row="0" x:Name="SearchIdtxt"
+                     Text="{ Binding FilterById ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                     HorizontalAlignment="Left" MinWidth="100" VerticalAlignment="Center" Margin="272,5,0,5" Height="20" Width="60"/>
+            <Label Grid.Column="0" Grid.Row="0" Content="Search by name:" Margin="382,0,0,5" />
             <TextBox Grid.Column="0" Grid.Row="0" x:Name="SearchNametxt"
-                     Text="{ Binding FilterText ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                     HorizontalAlignment="Left" MinWidth="100" VerticalAlignment="Center" Margin="342,5,0,5" Height="20" Width="60"/>
+                     Text="{ Binding FilterByName ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                     HorizontalAlignment="Left" MinWidth="100" VerticalAlignment="Center" Margin="482,5,0,5" Height="20" Width="60"/>
         </Grid>
-        
-        <Grid Grid.Row="2" >
-            <Grid ShowGridLines="False">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Label  Grid.Column="0" Grid.Row="0" Content="Brand name:"  HorizontalAlignment="Right" />
-                <TextBox Grid.Column="1"  Grid.Row="0" x:Name="BrandNametxt"
-                         Text="{ Binding SelectedGarment.BrandName ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                         HorizontalAlignment="Left" MinWidth="100" VerticalAlignment="Center" />
-                <Label Grid.Column="2" Grid.Row="0" Content="Purchase date:" HorizontalAlignment="Right" Width="89" HorizontalContentAlignment="Right" />
-                <DatePicker Grid.Row="0" Grid.Column="3" Name="PurchaseDatePicker"
-                            SelectedDate="{Binding SelectedGarment.Purchase, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static sys:DateTime.Now}}"
-                            HorizontalAlignment="Left" Margin="0,6,0,5" MinWidth="100" />
-                <Label  Grid.Row="1" Grid.Column="0"  Content="Color:" HorizontalAlignment="Right" Width="103"  HorizontalContentAlignment="Right"/>
-                <TextBox Grid.Row="1" Grid.Column="1"  Name="Colortxt"  HorizontalAlignment="Left"
-                         Text="{ Binding SelectedGarment.Color ,Mode=TwoWay}"
-                         MinWidth="100" VerticalAlignment="Center"/>
-                <Label  Grid.Row="1" Grid.Column="2" Content="Size:"  HorizontalAlignment="Right" Width="108" HorizontalContentAlignment="Right"/>
-                <ComboBox Grid.Row="1" Grid.Column="3" Name="SizeComboBox" HorizontalAlignment="Left"
-                          SelectedItem="{Binding SelectedGarment.Size, Mode=TwoWay}"
-                          Width="102" Margin="0,7">
-                    <ComboBox.ItemsSource>
-                        <x:Array Type="{x:Type enum:GarmentSize}">
-                            <enum:GarmentSize>XS</enum:GarmentSize>
-                            <enum:GarmentSize>S</enum:GarmentSize>
-                            <enum:GarmentSize>M</enum:GarmentSize>
-                            <enum:GarmentSize>L</enum:GarmentSize>
-                            <enum:GarmentSize>XL</enum:GarmentSize>
-                            <enum:GarmentSize>XXL</enum:GarmentSize>
-                        </x:Array>
-                    </ComboBox.ItemsSource>
-                </ComboBox>              
-            </Grid>
-        </Grid>
-        
+
         <DataGrid 
             x:Name="UsersDataGrid"
             Grid.Row="3"

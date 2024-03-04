@@ -21,16 +21,30 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
     
     private readonly IGarmentService _garmentService;
     
-    private string _filterText;
-    public string FilterText
+    private string _filterByIdText;
+    public string FilterById
     {
-        get => _filterText; 
+        get => _filterByIdText; 
         set
         {
-            if (_filterText != value)
+            if (_filterByIdText != value)
             {
-                _filterText = value;
-                FilterGarments();
+                _filterByIdText = value;
+                FilterGarmentsById();
+            }
+        }
+    }
+    
+    private string _filterByNameText;
+    public string FilterByName
+    {
+        get => _filterByNameText; 
+        set
+        {
+            if (_filterByNameText != value)
+            {
+                _filterByNameText = value;
+                FilterGarmentsByName();
             }
         }
     }
@@ -185,10 +199,17 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
         SelectedGarment = new Garment();
     }
 
-    private void FilterGarments()
+    private void FilterGarmentsById()
     {
         GetJsonData();
-        Garments = Garments.Where(garment => garment.BrandName!.Contains(_filterText)).ToList();
+        Garments = Garments.Where(garment => garment.BrandName!.Contains(_filterByIdText)).ToList();
+        NotifyPropertyChanged("Garments");
+    }
+    
+    private void FilterGarmentsByName()
+    {
+        GetJsonData();
+        Garments = Garments.Where(garment => garment.BrandName!.Contains(_filterByNameText)).ToList();
         NotifyPropertyChanged("Garments");
     }
     
