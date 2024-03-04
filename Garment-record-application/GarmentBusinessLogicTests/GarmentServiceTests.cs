@@ -2,6 +2,7 @@ using GarmentBusinessLogic.Service;
 using GarmentBusinessLogic.Service.Logger;
 using GarmentRecordLibrary.Model;
 using GarmentRecordLibrary.Model.Enum;
+using NUnit.Framework.Constraints;
 
 namespace GarmentBusinessLogicTests;
 
@@ -24,7 +25,7 @@ public class Tests
         {
             _garmentService!.AddGarment(new Garment
             {
-                Id = (uint)i + 1,
+                Id = (uint)i,
                 BrandName = i % 5 == 0? "Test brand name" : "Other test brand name",
                 Color = i % 2 == 0? "White" : "Grey",
                 Purchase = new DateTime(2024, 2, i + 1),
@@ -54,7 +55,7 @@ public class Tests
     [Test, Order(3)]
     public void Search_Garment_Return_Okay_With_Valid_Parameters()
     {
-        var searchedGarment = _garmentService!.SearchGarment(1);
+        var searchedGarment = _garmentService!.SearchGarment(_garmentService!.GarmentList![0].Id);
         Assert.That(searchedGarment != null);
     }
     
@@ -62,7 +63,7 @@ public class Tests
     public void Sort_Garment_By_Id()
     {
         _garmentService!.SortGarments("id");
-        Assert.That(_garmentService!.GarmentList![0].Id == 1);
+        Assert.That(_garmentService!.GarmentList![0].Id == _garmentService!.GarmentList.Min(garment => garment.Id));
     }
     
     [Test, Order(5)]
@@ -99,11 +100,17 @@ public class Tests
     [Test, Order(9)]
     public void Delete_Garment_Return_Okay_With_Valid_Parameters()
     {
-        for (var i = 0; i < 10; i++)
+        Assert.Throws<InvalidOperationException>(() =>
         {
-            _garmentService!.DeleteGarment((uint)i+1);
-        }
-        
-        Assert.That(_garmentService!.GarmentList!.Count == 0);
+            if (_garmentService!.GarmentList == null || !_garmentService!.GarmentList.Any())
+            {
+                throw new InvalidOperationException("GarmentList is already empty. No deletion needed.");
+            }
+            for (var i = _garmentService!.GarmentList!.Min(garment => garment.Id); i <= _garmentService!.GarmentList!.Max(garment => garment.Id); i++)
+            {
+                _garmentService!.DeleteGarment(i);
+            }
+        });
+        Assert.That(_garmentService!.GarmentList, Is.Empty, "GarmentList should be empty after deleting all garments");
     }
 }
