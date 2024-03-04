@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using Garment_record_application.ICommandUpdater;
+using Garment_record_application.View;
 using GarmentBusinessLogic.Service;
 using GarmentBusinessLogic.Service.Logger;
 using GarmentRecordLibrary.Model;
@@ -46,7 +47,6 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
         _garmentService = new GarmentService("GarmentData.json", _logger);
         GetJsonData();
         SelectedGarment = new Garment();
-        
     }
 
     public ICommand ShowDataCommand
@@ -75,14 +75,23 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
         {
             if (_addCommand == null)
             {
-                _addCommand = new RelayCommand(param => AddJsonData(), null);
+                _addCommand = new RelayCommand(param => ShowGarmentModal(true), null);
             }
 
             return _addCommand;
         }
     }
+    
+    public void ShowGarmentModal(bool insNew)
+    {
+        var addGarmentWindow = new GarmentWindow(this, insNew)
+        {
+            DataContext = SelectedGarment
+        };
+        addGarmentWindow.ShowDialog();
+    }
 
-    private void AddJsonData()
+    public void AddJsonData()
     {
         if (Garments == null)
         {
@@ -130,14 +139,14 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
         {
             if (_updateCommand == null)
             {
-                _updateCommand = new RelayCommand(param => UpdateJsonData(), null);
+                _updateCommand = new RelayCommand(param => ShowGarmentModal(false), null);
             }
 
             return _updateCommand;
         }
     }
 
-    private void UpdateJsonData()
+    public void UpdateJsonData()
     {
         if (!EmptyInput())
         {
