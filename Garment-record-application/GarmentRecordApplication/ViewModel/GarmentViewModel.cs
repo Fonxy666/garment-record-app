@@ -15,7 +15,9 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
     private ICommand _addCommand;
     private ICommand _updateCommand;
     private ICommand _deleteCommand;
+    private ICommand _sortCommand;
     private ILogger _logger;
+    public SortModel GarmentSortModel { get; set; }
     
     private readonly IGarmentService _garmentService;
     
@@ -47,6 +49,7 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
         _garmentService = new GarmentService("GarmentData.json", _logger);
         GetJsonData();
         SelectedGarment = new Garment();
+        GarmentSortModel = new SortModel();
     }
 
     public ICommand ShowDataCommand
@@ -187,5 +190,57 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
         GetJsonData();
         Garments = Garments.Where(garment => garment.BrandName!.Contains(_filterText)).ToList();
         NotifyPropertyChanged("Garments");
+    }
+    
+    public ICommand SortCommand
+    {
+        get
+        {
+            if (_sortCommand == null)
+            {
+                _sortCommand = new RelayCommand(param => SortGarments(param as string), null);
+            }
+
+            return _sortCommand;
+        }
+    }
+
+    private void SortGarments(string param)
+    {
+        GarmentSortModel.Id = false;
+        GarmentSortModel.BrandName = false;
+        GarmentSortModel.Color = false;
+        GarmentSortModel.Purchase = false;
+        GarmentSortModel.Size = false;
+        
+        switch (param)
+        {
+            case "id":
+                GarmentSortModel.Id = true;
+                _garmentService.SortGarments(param);
+                break;
+            
+            case "name":
+                GarmentSortModel.BrandName = true;
+                _garmentService.SortGarments(param);
+                break;
+            
+            case "color":
+                GarmentSortModel.Color = true;
+                _garmentService.SortGarments(param);
+                break;
+            
+            case "purchase":
+                GarmentSortModel.Purchase = true;
+                _garmentService.SortGarments(param);
+                break;
+            
+            case "size":
+                GarmentSortModel.Size = true;
+                _garmentService.SortGarments(param);
+                break;
+        }
+
+        GetJsonData();
     }
 }

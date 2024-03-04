@@ -30,11 +30,66 @@
             <Button Content="Refresh"  HorizontalAlignment="Left" Margin="72,5,0,5" Height="20" Width="60" Command="{Binding ShowDataCommand}"/>
             <Menu HorizontalAlignment="Left" VerticalAlignment="Top" Margin="142,5,0,5" Height="20" Width="38" BorderBrush="Black" BorderThickness="1">
                 <MenuItem Header="Sort">
-                    <MenuItem Header="Id"/>
-                    <MenuItem Header="Brand name"/>
-                    <MenuItem Header="Color"/>
-                    <MenuItem Header="Purchase"/>
-                    <MenuItem Header="Size"/>
+                    <MenuItem Header="Id" IsChecked="{Binding GarmentSortModel.Id}" Command="{Binding SortCommand}" CommandParameter="id">
+                        <MenuItem.Style>
+                            <Style TargetType="MenuItem">
+                                <Style.Triggers>
+                                    <Trigger Property="IsChecked" Value="True">
+                                        <Setter Property="BorderBrush" Value="Black"/>
+                                        <Setter Property="BorderThickness" Value="0,0,1,0"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </MenuItem.Style>
+                    </MenuItem>
+                    <MenuItem Header="Brand name" IsChecked="{Binding GarmentSortModel.BrandName}" Command="{Binding SortCommand}" CommandParameter="name">
+                        <MenuItem.Style>
+                            <Style TargetType="MenuItem">
+                                <Style.Triggers>
+                                    <Trigger Property="IsChecked" Value="True">
+                                        <Setter Property="BorderBrush" Value="Black"/>
+                                        <Setter Property="BorderThickness" Value="0,0,1,0"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </MenuItem.Style>
+                    </MenuItem>
+                    <MenuItem Header="Color" IsChecked="{Binding GarmentSortModel.Color}" Command="{Binding SortCommand}" CommandParameter="color">
+                        <MenuItem.Style>
+                            <Style TargetType="MenuItem">
+                                <Style.Triggers>
+                                    <Trigger Property="IsChecked" Value="True">
+                                        <Setter Property="BorderBrush" Value="Black"/>
+                                        <Setter Property="BorderThickness" Value="0,0,1,0"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </MenuItem.Style>
+                    </MenuItem>
+                    <MenuItem Header="Purchase" IsChecked="{Binding GarmentSortModel.Purchase}" Command="{Binding SortCommand}" CommandParameter="purchase">
+                        <MenuItem.Style>
+                            <Style TargetType="MenuItem">
+                                <Style.Triggers>
+                                    <Trigger Property="IsChecked" Value="True">
+                                        <Setter Property="BorderBrush" Value="Black"/>
+                                        <Setter Property="BorderThickness" Value="0,0,1,0"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </MenuItem.Style>
+                    </MenuItem>
+                    <MenuItem Header="Size" IsChecked="{Binding GarmentSortModel.Size}" Command="{Binding SortCommand}" CommandParameter="size">
+                        <MenuItem.Style>
+                            <Style TargetType="MenuItem">
+                                <Style.Triggers>
+                                    <Trigger Property="IsChecked" Value="True">
+                                        <Setter Property="BorderBrush" Value="Black"/>
+                                        <Setter Property="BorderThickness" Value="0,0,1,0"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </MenuItem.Style>
+                    </MenuItem>
                 </MenuItem>
             </Menu>
             <Label Grid.Column="0" Grid.Row="0" Content="Search by name:" Margin="242,0,0,5" />

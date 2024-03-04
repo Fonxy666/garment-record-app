@@ -102,21 +102,25 @@ public class GarmentService : IGarmentService
                 SaveToFile();
                 _logger.ShowText("Garments sorted by Id successfully.");
                 break;
+            
             case "name":
                 GarmentList = GarmentList!.OrderBy(garment => garment.BrandName).ToList();
                 SaveToFile();
                 _logger.ShowText("Garments sorted by Brand name successfully.");
                 break;
+            
             case "color":
                 GarmentList = GarmentList!.OrderBy(garment => garment.Color).ToList();
                 SaveToFile();
                 _logger.ShowText("Garments sorted by Color successfully.");
                 break;
+            
             case "purchase":
                 GarmentList = GarmentList!.OrderBy(garment => garment.Purchase).ToList();
                 SaveToFile();
                 _logger.ShowText("Garments sorted by Purchase date successfully.");
                 break;
+            
             case "size":
                 GarmentList = GarmentList!.OrderBy(garment => garment.Size).ToList();
                 SaveToFile();
