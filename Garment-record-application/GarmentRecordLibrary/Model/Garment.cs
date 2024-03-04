@@ -5,13 +5,8 @@ namespace GarmentRecordLibrary.Model;
 
 public class Garment : NotifyPropertyChangedHandler
 {
-    private uint _id;
-    public uint Id
-    {
-        get => _id;
-        set { _id = value; }
-    }
-    
+    public uint Id { get; set; }
+
     private string? _brandName;
     public string? BrandName
     {

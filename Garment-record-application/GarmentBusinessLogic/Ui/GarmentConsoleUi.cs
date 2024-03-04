@@ -104,10 +104,7 @@ public class GarmentConsoleUi
     {
         _logger.ShowText("At the end of the lines, give us the details you want to add to the new garment.");
         _logger.OneLine("Brand name: ");
-        var newGarment = new Garment
-        {
-            Id = (uint)_garmentService.GarmentList!.Count + 1
-        };
+        var newGarment = new Garment();
         newGarment.BrandName = _logger.Input();
         _logger.OneLine("Color: ");
         newGarment.Color = _logger.Input();

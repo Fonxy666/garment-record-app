@@ -9,27 +9,36 @@ public class GarmentService : IGarmentService
 {
     public IList<Garment>? GarmentList { get; set; }
     private readonly string _jsonPath;
+    private readonly string _idJsonPath;
     private readonly ILogger _logger;
 
     public GarmentService(string jsonPath, ILogger logger)
     {
         _jsonPath = jsonPath;
+        _idJsonPath = "GarmentId.json";
         _logger = logger;
-        GarmentList = LoadFromFile(jsonPath);
+        GarmentList = LoadGarmentFromFile(jsonPath);
     }
 
-    private IList<Garment> LoadFromFile(string path)
+    private IList<Garment> LoadGarmentFromFile(string path)
     {
         var json = File.ReadAllText(path);
         return JsonConvert.DeserializeObject<List<Garment>>(json)!;
     }
 
+    private uint LoadIdFromFile(string path)
+    {
+        var json = File.ReadAllText(path);
+        return JsonConvert.DeserializeObject<Id>(json)!.NewId;
+    }
+
     public void AddGarment(Garment garment)
     {
+        garment.Id = LoadIdFromFile(_idJsonPath);
         GarmentList!.Add(garment);
         try
         {
-            SaveToFile();
+            SaveToFile(true);
             _logger.ShowText("New garment successfully added.");
         }
         catch (Exception ex)
@@ -38,12 +47,17 @@ public class GarmentService : IGarmentService
         }
     }
 
-    private void SaveToFile()
+    private void SaveToFile(bool updateId)
     {
         try
         {
             var updatedJson = JsonConvert.SerializeObject(GarmentList, Formatting.Indented);
             File.WriteAllText(_jsonPath, updatedJson);
+            if (updateId)
+            {
+                var updatedId = JsonConvert.SerializeObject(new Id(LoadIdFromFile(_idJsonPath) + 1), Formatting.Indented);
+                File.WriteAllText(_idJsonPath, updatedId);
+            }
         }
         catch (Exception ex)
         {
@@ -53,7 +67,7 @@ public class GarmentService : IGarmentService
 
     public void ResetGarmentListToDefault()
     {
-        GarmentList = LoadFromFile(_jsonPath);
+        GarmentList = LoadGarmentFromFile(_jsonPath);
     }
 
     public void UpdateGarment(uint oldGarmentId, Garment newGarment)
@@ -63,7 +77,7 @@ public class GarmentService : IGarmentService
         if (existingGarment != null)
         {
             GarmentList[index] = newGarment;
-            SaveToFile();
+            SaveToFile(false);
             _logger.ShowText($"Garment with ID {oldGarmentId} updated successfully.");
         }
         else
@@ -79,7 +93,7 @@ public class GarmentService : IGarmentService
         if (existingGarment != null)
         {
             GarmentList!.Remove(existingGarment);
-            SaveToFile();
+            SaveToFile(false);
             _logger.ShowText($"Garment with ID {garmentId} deleted successfully.");
         }
         else
@@ -99,31 +113,31 @@ public class GarmentService : IGarmentService
         {
             case "id":
                 GarmentList = GarmentList!.OrderBy(garment => garment.Id).ToList();
-                SaveToFile();
+                SaveToFile(false);
                 _logger.ShowText("Garments sorted by Id successfully.");
                 break;
             
             case "name":
                 GarmentList = GarmentList!.OrderBy(garment => garment.BrandName).ToList();
-                SaveToFile();
+                SaveToFile(false);
                 _logger.ShowText("Garments sorted by Brand name successfully.");
                 break;
             
             case "color":
                 GarmentList = GarmentList!.OrderBy(garment => garment.Color).ToList();
-                SaveToFile();
+                SaveToFile(false);
                 _logger.ShowText("Garments sorted by Color successfully.");
                 break;
             
             case "purchase":
                 GarmentList = GarmentList!.OrderBy(garment => garment.Purchase).ToList();
-                SaveToFile();
+                SaveToFile(false);
                 _logger.ShowText("Garments sorted by Purchase date successfully.");
                 break;
             
             case "size":
                 GarmentList = GarmentList!.OrderBy(garment => garment.Size).ToList();
-                SaveToFile();
+                SaveToFile(false);
                 _logger.ShowText("Garments sorted by Size successfully.");
                 break;
         }
