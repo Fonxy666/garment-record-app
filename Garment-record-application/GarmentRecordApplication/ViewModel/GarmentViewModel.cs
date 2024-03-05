@@ -115,14 +115,6 @@ public class GarmentViewModel : NotifyPropertyChangedHandler
             Garments = new List<Garment>();
         }
 
-        SelectedGarment.Id = Garments.Count > 0 ? Garments.LastOrDefault()?.Id + 1 ?? 1 : 1;
-
-        if (SelectedGarment.Id <= 0)
-        {
-            MessageBox.Show("Invalid ID. Aborting addition.");
-            return;
-        }
-
         if (!EmptyInput())
         {
             _garmentService.AddGarment(SelectedGarment);
