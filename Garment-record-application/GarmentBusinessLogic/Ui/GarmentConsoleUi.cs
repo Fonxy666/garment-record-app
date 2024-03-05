@@ -142,8 +142,15 @@ public class GarmentConsoleUi
         var input = _logger.Input();
         if (uint.TryParse(input, out var parsedId))
         {
-            var garment = _garmentService.SearchGarment(parsedId);
-            ShowGarment(garment);
+            try
+            {
+                var garment = _garmentService.SearchGarment(parsedId);
+                ShowGarment(garment);
+            }
+            catch
+            {
+                _logger.ErrorLog($"Garment not found with id: {parsedId}");
+            }
         }
         else
         {
