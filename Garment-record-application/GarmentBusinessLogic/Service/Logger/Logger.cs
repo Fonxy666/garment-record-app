@@ -7,7 +7,7 @@ public class Logger : ILogger
         Console.WriteLine(message);
     }
 
-    public void OneLine(string message)
+    public void ShowTextInputInTheSameRow(string message)
     {
         Console.Write(message);
     }

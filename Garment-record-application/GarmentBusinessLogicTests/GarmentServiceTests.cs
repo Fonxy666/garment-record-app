@@ -18,7 +18,7 @@ public class Tests
     }
 
     [Test, Order(1)]
-    public void Add_Garment_Return_Okay_With_Valid_Parameters()
+    public void Add_Garment_Add_All_10_Garments()
     {
         for (var i = 9; i >= 0; i--)
         {
@@ -36,7 +36,7 @@ public class Tests
     }
     
     [Test, Order(2)]
-    public void Update_Garment_Return_Okay_With_Valid_Parameters()
+    public void Update_Garment_Updated_Garment_Successfully()
     {
         var updatedGarment = new Garment
         {
@@ -52,21 +52,21 @@ public class Tests
     }
     
     [Test, Order(3)]
-    public void Search_Garment_Return_Okay_With_Valid_Parameters()
+    public void Search_Garment_Find_The_Garment_With_Valid_Id()
     {
         var searchedGarment = _garmentService!.SearchGarment(_garmentService!.GarmentList![0].Id);
         Assert.That(searchedGarment != null);
     }
     
     [Test, Order(4)]
-    public void Sort_Garment_By_Id()
+    public void Sort_Garment_By_Id_Sorting_Properly()
     {
         _garmentService!.SortGarments("id");
         Assert.That(_garmentService!.GarmentList![0].Id == _garmentService!.GarmentList.Min(garment => garment.Id));
     }
     
     [Test, Order(5)]
-    public void Sort_Garment_By_BrandName()
+    public void Sort_Garment_By_BrandName_Sorting_Properly()
     {
         _garmentService!.SortGarments("name");
         Assert.That(_garmentService!.GarmentList![0].BrandName == "Other test brand name");
@@ -74,7 +74,7 @@ public class Tests
     }
     
     [Test, Order(6)]
-    public void Sort_Garment_By_Color()
+    public void Sort_Garment_By_Color_Sorting_Properly()
     {
         _garmentService!.SortGarments("color");
         Assert.That(_garmentService!.GarmentList![0].Color == "Grey");
@@ -82,14 +82,14 @@ public class Tests
     }
     
     [Test, Order(7)]
-    public void Sort_Garment_By_Purchase()
+    public void Sort_Garment_By_Purchase_Sorting_Properly()
     {
         _garmentService!.SortGarments("purchase");
         Assert.That(_garmentService!.GarmentList![0].Purchase == new DateTime(2024,2,1));
     }
     
     [Test, Order(8)]
-    public void Sort_Garment_By_Size()
+    public void Sort_Garment_By_Size_Sorting_Properly()
     {
         _garmentService!.SortGarments("size");
         Assert.That(_garmentService!.GarmentList![0].Size == GarmentSize.S);
@@ -97,7 +97,7 @@ public class Tests
     }
     
     [Test, Order(9)]
-    public void Delete_Garment_Return_Okay_With_Valid_Parameters()
+    public void Delete_Garment_Deletes_All_Garment_With_Valid_Id()
     {
         Assert.Throws<InvalidOperationException>(() =>
         {

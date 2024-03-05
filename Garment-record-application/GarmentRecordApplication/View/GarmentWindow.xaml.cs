@@ -24,7 +24,15 @@ public partial class GarmentWindow : Window
 
     private void AddButton_Click(object sender, RoutedEventArgs e)
     {
-        if (_viewModel != null)
+        if (BrandNametxt.Text == string.Empty)
+        {
+            MessageBox.Show("Brand name cannot be empty.");
+        }
+        else if (Colortxt.Text == string.Empty)
+        {
+            MessageBox.Show("Garment color cannot be empty.");
+        }
+        else if (_viewModel != null)
         {
             if (_isNewItem)
             {
@@ -34,7 +42,6 @@ public partial class GarmentWindow : Window
             {
                 _viewModel.UpdateJsonData();
             }
-
             Close();
         }
     }

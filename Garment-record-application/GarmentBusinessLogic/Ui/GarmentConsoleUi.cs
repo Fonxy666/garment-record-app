@@ -22,7 +22,7 @@ public class GarmentConsoleUi
         var inputCode = 0;
         while (inputCode != 7)
         {
-            inputCode = GetCode();
+            inputCode = ParseInput();
             switch (inputCode)
             {
                 case 1:
@@ -63,7 +63,7 @@ public class GarmentConsoleUi
         _logger.ShowText("7 - Exit");
     }
     
-    private int GetCode()
+    private int ParseInput()
     {
         return int.Parse(_logger.Input());
     }
@@ -103,14 +103,14 @@ public class GarmentConsoleUi
     private Garment CreateGarment()
     {
         _logger.ShowText("At the end of the lines, give us the details you want to add to the new garment.");
-        _logger.OneLine("Brand name: ");
+        _logger.ShowTextInputInTheSameRow("Brand name: ");
         var newGarment = new Garment();
         newGarment.BrandName = _logger.Input();
-        _logger.OneLine("Color: ");
+        _logger.ShowTextInputInTheSameRow("Color: ");
         newGarment.Color = _logger.Input();
         
         _logger.ShowText("Size:");
-        _logger.OneLine("It can be: 'XS', 'S', 'M', 'L', 'XL', 'XXL', don't forget to use uppercase. The standard value is 'XS'.");
+        _logger.ShowTextInputInTheSameRow("It can be: 'XS', 'S', 'M', 'L', 'XL', 'XXL', don't forget to use uppercase. The standard value is 'XS'.");
         var garmentSizeInput = _logger.Input();
         
         if (Enum.TryParse(garmentSizeInput, out GarmentSize garmentSize))
@@ -122,7 +122,7 @@ public class GarmentConsoleUi
             _logger.ErrorLog("Parse failed. The Size got default value, later on you can update it.");
         }
         
-        _logger.OneLine("Purchase date('yyyy-mm-dd'), or if you hit enter, it will save today: ");
+        _logger.ShowTextInputInTheSameRow("Purchase date('yyyy-mm-dd'), or if you hit enter, it will save today: ");
         var purchaseDateInput = _logger.Input();
         if (DateTime.TryParse(purchaseDateInput, out var purchaseDate))
         {
@@ -138,7 +138,7 @@ public class GarmentConsoleUi
 
     private void SearchById()
     {
-        _logger.OneLine("Give us the id: ");
+        _logger.ShowTextInputInTheSameRow("Give us the id: ");
         var input = _logger.Input();
         if (uint.TryParse(input, out var parsedId))
         {
@@ -153,7 +153,7 @@ public class GarmentConsoleUi
 
     private void UpdateGarment()
     {
-        _logger.OneLine("Give us the garment id which you want to update: ");
+        _logger.ShowTextInputInTheSameRow("Give us the garment id which you want to update: ");
         var input = _logger.Input();
         if (uint.TryParse(input, out var parsedId))
         {
@@ -183,7 +183,7 @@ public class GarmentConsoleUi
 
     private void DeleteGarment()
     {
-        _logger.OneLine("Give us the garment id which you want to delete: ");
+        _logger.ShowTextInputInTheSameRow("Give us the garment id which you want to delete: ");
         var input = _logger.Input();
         if (uint.TryParse(input, out var parsedId))
         {
