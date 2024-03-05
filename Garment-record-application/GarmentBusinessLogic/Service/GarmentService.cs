@@ -22,12 +22,27 @@ public class GarmentService : IGarmentService
 
     private IList<Garment> LoadGarmentFromFile(string path)
     {
+        if (!File.Exists(path))
+        {
+            var emptyGarmentList = new List<Garment>();
+            var emptyJson = JsonConvert.SerializeObject(emptyGarmentList);
+            File.WriteAllText(path, emptyJson);
+            return emptyGarmentList;
+        }
+        
         var json = File.ReadAllText(path);
         return JsonConvert.DeserializeObject<List<Garment>>(json)!;
     }
 
     private uint LoadIdFromFile(string path)
     {
+        if (!File.Exists(path))
+        {
+            var freshIdFile = new Id(1);
+            var emptyJson = JsonConvert.SerializeObject(freshIdFile);
+            File.WriteAllText(path, emptyJson);
+            return freshIdFile.NewId;
+        }
         var json = File.ReadAllText(path);
         return JsonConvert.DeserializeObject<Id>(json)!.NewId;
     }
