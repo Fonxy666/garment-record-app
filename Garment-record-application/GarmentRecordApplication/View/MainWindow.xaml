@@ -4,8 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:Garment_record_application.ViewModel"
-        xmlns:sys="clr-namespace:System;assembly=System.Runtime"
-        xmlns:enum="clr-namespace:GarmentRecordLibrary.Model.Enum;assembly=GarmentRecordLibrary"
         mc:Ignorable="d"
         Title="Garments" Height="450" Width="800">
     
